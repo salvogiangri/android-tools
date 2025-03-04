@@ -121,6 +121,7 @@ include(CMakeLists.mkbootimg.txt)
 include(CMakeLists.libufdt.txt)
 include(CMakeLists.avb.txt)
 include(CMakeLists.zipalign.txt)
+include(CMakeLists.mkbootfs.txt)
 
 # Targets which should be installed by `make install`.
 install(TARGETS
@@ -135,6 +136,7 @@ install(TARGETS
 	lpmake
 	lpunpack
 	make_f2fs
+	mkbootfs
 	sload_f2fs
 	simg2img
 	ext2simg
