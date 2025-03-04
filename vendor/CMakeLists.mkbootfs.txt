@@ -1,0 +1,4 @@
+add_executable(mkbootfs
+	core/mkbootfs/mkbootfs.c)
+
+target_link_libraries(mkbootfs PRIVATE libcutils libbase)
