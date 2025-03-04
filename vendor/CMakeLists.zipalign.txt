@@ -1,0 +1,40 @@
+add_library(libutils_binder STATIC
+	core/libutils/binder/Errors.cpp
+	core/libutils/binder/RefBase.cpp
+	core/libutils/binder/SharedBuffer.cpp
+	core/libutils/binder/String16.cpp
+	core/libutils/binder/String8.cpp
+	core/libutils/binder/StrongPointer.cpp
+	core/libutils/binder/Unicode.cpp
+	core/libutils/binder/VectorImpl.cpp)
+
+target_include_directories(libutils_binder PUBLIC
+	core/libutils/binder/include)
+target_link_libraries(libutils_binder PRIVATE liblog)
+
+add_library(libzopfli STATIC
+	zopfli/src/zopfli/blocksplitter.c
+	zopfli/src/zopfli/cache.c
+	zopfli/src/zopfli/deflate.c
+	zopfli/src/zopfli/gzip_container.c
+	zopfli/src/zopfli/hash.c
+	zopfli/src/zopfli/katajainen.c
+	zopfli/src/zopfli/lz77.c
+	zopfli/src/zopfli/squeeze.c
+	zopfli/src/zopfli/tree.c
+	zopfli/src/zopfli/util.c
+	zopfli/src/zopfli/zlib_container.c
+	zopfli/src/zopfli/zopfli_lib.c)
+
+target_include_directories(libzopfli PUBLIC
+	zopfli/src)
+
+add_executable(zipalign
+	build/tools/zipalign/ZipAlign.cpp
+	build/tools/zipalign/ZipEntry.cpp
+	build/tools/zipalign/ZipFile.cpp
+	build/tools/zipalign/ZipAlignMain.cpp)
+
+target_include_directories(zipalign PRIVATE
+	build/tools/zipalign/include)
+target_link_libraries(zipalign PRIVATE libutils_binder libzip z libbase libzopfli)

@@ -121,6 +121,7 @@ include(CMakeLists.partition.txt)
 include(CMakeLists.mkbootimg.txt)
 include(CMakeLists.libufdt.txt)
 include(CMakeLists.avb.txt)
+include(CMakeLists.zipalign.txt)
 
 # Targets which should be installed by `make install`.
 install(TARGETS
@@ -138,6 +139,7 @@ install(TARGETS
 	sload_f2fs
 	simg2img
 	ext2simg
+	zipalign
 	DESTINATION bin)
 
 if(NOT APPLE)
