@@ -122,6 +122,7 @@ include(CMakeLists.libufdt.txt)
 include(CMakeLists.avb.txt)
 include(CMakeLists.zipalign.txt)
 include(CMakeLists.mkbootfs.txt)
+include(CMakeLists.fec.txt)
 
 # Targets which should be installed by `make install`.
 install(TARGETS
@@ -129,6 +130,7 @@ install(TARGETS
 	adb
 	append2simg
 	fastboot
+	fec
 	img2simg
 	lpadd
 	lpdump
