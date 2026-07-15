@@ -1,0 +1,72 @@
+set(libdivsufsort_SOURCES
+    libdivsufsort/lib/divsufsort.c
+    libdivsufsort/lib/sssort.c
+    libdivsufsort/lib/trsort.c
+    libdivsufsort/lib/utils.c)
+
+add_library(libdivsufsort STATIC ${libdivsufsort_SOURCES})
+
+target_include_directories(libdivsufsort PUBLIC
+	libdivsufsort/android_include)
+target_include_directories(libdivsufsort PRIVATE
+	libdivsufsort/include)
+target_compile_definitions(libdivsufsort PRIVATE
+    HAVE_CONFIG_H=1)
+
+add_library(libdivsufsort64 STATIC ${libdivsufsort_SOURCES})
+
+target_include_directories(libdivsufsort64 PUBLIC
+	libdivsufsort/android_include)
+target_include_directories(libdivsufsort64 PRIVATE
+	libdivsufsort/include)
+target_compile_definitions(libdivsufsort64 PRIVATE
+    HAVE_CONFIG_H=1 BUILD_DIVSUFSORT64)
+
+add_library(libbsdiff STATIC
+	bsdiff/brotli_compressor.cc
+	bsdiff/bsdiff.cc
+	bsdiff/bz2_compressor.cc
+	bsdiff/compressor_buffer.cc
+	bsdiff/diff_encoder.cc
+	bsdiff/endsley_patch_writer.cc
+	bsdiff/logging.cc
+	bsdiff/patch_writer.cc
+	bsdiff/patch_writer_factory.cc
+	bsdiff/split_patch_writer.cc
+	bsdiff/suffix_array_index.cc)
+add_library(libbspatch STATIC
+	bsdiff/brotli_decompressor.cc
+	bsdiff/bspatch.cc
+	bsdiff/bz2_decompressor.cc
+	bsdiff/buffer_file.cc
+	bsdiff/decompressor_interface.cc
+	bsdiff/extents.cc
+	bsdiff/extents_file.cc
+	bsdiff/file.cc
+	bsdiff/logging.cc
+	bsdiff/memory_file.cc
+	bsdiff/patch_reader.cc
+	bsdiff/sink_file.cc
+	bsdiff/utils.cc)
+
+target_include_directories(libbsdiff PUBLIC
+	bsdiff/.. bsdiff/include)
+target_link_libraries(libbsdiff PRIVATE
+    PkgConfig::libbrotlienc
+    BZip2::BZip2
+    libdivsufsort
+    libdivsufsort64)
+target_include_directories(libbspatch PUBLIC
+	bsdiff/.. bsdiff/include)
+target_link_libraries(libbspatch PRIVATE
+    PkgConfig::libbrotlidec
+    BZip2::BZip2)
+
+add_executable(bsdiff
+	bsdiff/bsdiff_arguments.cc
+	bsdiff/bsdiff_main.cc)
+add_executable(bspatch
+	bsdiff/bspatch_main.cc)
+
+target_link_libraries(bsdiff PRIVATE libbsdiff)
+target_link_libraries(bspatch PRIVATE libbspatch)

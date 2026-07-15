@@ -74,3 +74,11 @@
 	shallow = true
 	path = vendor/squashfs-tools
 	url = https://android.googlesource.com/platform/external/squashfs-tools.git
+[submodule "vendor/bsdiff"]
+	shallow = true
+	path = vendor/bsdiff
+	url = https://android.googlesource.com/platform/external/bsdiff.git
+[submodule "vendor/libdivsufsort"]
+	shallow = true
+	path = vendor/libdivsufsort
+	url = https://android.googlesource.com/platform/external/libdivsufsort.git

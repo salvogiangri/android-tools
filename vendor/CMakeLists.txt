@@ -100,6 +100,7 @@ else()
 endif()
 pkg_check_modules(libzstd REQUIRED IMPORTED_TARGET libzstd)
 
+find_package(BZip2 REQUIRED)
 find_package(Protobuf CONFIG)
 find_package(Protobuf REQUIRED)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
@@ -124,12 +125,15 @@ include(CMakeLists.avb.txt)
 include(CMakeLists.zipalign.txt)
 include(CMakeLists.mkbootfs.txt)
 include(CMakeLists.fec.txt)
+include(CMakeLists.bsdiff.txt)
 
 # Targets which should be installed by `make install`.
 install(TARGETS
 	"${ANDROID_MKE2FS_NAME}"
 	adb
 	append2simg
+	bsdiff
+	bspatch
 	fastboot
 	fec
 	img2simg
